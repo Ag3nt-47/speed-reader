@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark light">
+    <title>Yerel RSVP Speed Reader</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow">Tarayıcı içinde çalışan RSVP okuyucu</p>
+        <h1 id="page-title">Metni yapıştır, hızını ayarla, kelimeleri ritimle oku.</h1>
+        <p class="intro">
+          Metin cihazınızdan ayrılmaz. Uzun yazılar için kelime sınırı yoktur; 1, 2 veya 3 kelimelik gruplarla okuyabilirsiniz.
+        </p>
+      </section>
+
+      <section class="workspace" aria-label="Speed reader uygulaması">
+        <article class="panel input-panel">
+          <div class="panel-heading">
+            <h2>Metin</h2>
+            <div class="heading-tools">
+              <button id="cleanTextButton" class="small-button" type="button">Metni temizle</button>
+              <span class="stat-pill"><span id="wordCount">0</span> kelime</span>
+            </div>
+          </div>
+          <p class="panel-description">Okumak istediğiniz metni buraya yapıştırın.</p>
+
+          <label class="sr-only" for="sourceText">Okunacak metin</label>
+          <textarea
+            id="sourceText"
+            spellcheck="false"
+            placeholder="Uzun bir makale, kitap bölümü veya notlarınızı buraya yapıştırın..."
+          ></textarea>
+
+          <div class="text-meta">
+            <span><span id="charCount">0</span> karakter</span>
+            <span id="estimate">Süre: 0 dk</span>
+          </div>
+        </article>
+
+        <article class="panel reader-panel">
+          <div class="reader-toolbar">
+            <div>
+              <h2>Okuyucu</h2>
+              <p>Odak kelimede, kontroller altta.</p>
+            </div>
+          </div>
+
+          <div class="reader-stage" aria-live="polite" aria-atomic="true">
+            <div id="readerDisplay" class="reader-display">Metin bekleniyor</div>
+          </div>
+
+          <div class="progress-block" aria-label="Okuma ilerlemesi">
+            <div class="progress-topline">
+              <span>Konum: <strong id="positionLabel">0 / 0</strong></span>
+              <span><strong id="percentLabel">0%</strong></span>
+            </div>
+            <div class="progress-track" aria-hidden="true">
+              <div id="progressFill" class="progress-fill"></div>
+            </div>
+          </div>
+
+          <div class="controls-grid">
+            <label class="control-field" for="wpmInput">
+              <span>WPM (kelime/dakika)</span>
+              <input id="wpmInput" type="number" min="60" max="1200" step="10" inputmode="numeric">
+            </label>
+
+            <label class="control-field wide-field" for="wpmRange">
+              <span>Hız sliderı (WPM ile aynı ayar)</span>
+              <input id="wpmRange" type="range" min="60" max="1200" step="10">
+            </label>
+
+            <label class="control-field wide-field" for="fontSizeRange">
+              <span>Kelime boyutu <strong id="fontSizeValue">72 px</strong></span>
+              <input id="fontSizeRange" type="range" min="44" max="132" step="2">
+            </label>
+
+            <label class="control-field" for="groupSize">
+              <span>Ekrandaki kelime</span>
+              <select id="groupSize">
+                <option value="1">1 kelime</option>
+                <option value="2">2 kelime</option>
+                <option value="3">3 kelime</option>
+              </select>
+            </label>
+
+            <label class="toggle-field" for="orpMode">
+              <input id="orpMode" type="checkbox">
+              <span>ORP orta harf vurgusu</span>
+            </label>
+          </div>
+
+          <div class="button-row" aria-label="Okuma kontrolleri">
+            <button id="previousButton" type="button">Geri</button>
+            <button id="playToggleButton" class="primary-button" type="button" aria-pressed="false">Başlat</button>
+            <button id="nextButton" type="button">İleri</button>
+            <button id="resetButton" type="button">Sıfırla</button>
+            <button id="focusModeButton" type="button" aria-pressed="false">Focus Mode</button>
+          </div>
+
+          <p class="shortcut-help">Space: başlat/duraklat | Sol ok: geri | Sağ ok: ileri | R: sıfırla | F: focus mode</p>
+          <p id="statusText" class="sr-only" aria-live="polite">Başlat düğmesine basın veya Space kullanın.</p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
